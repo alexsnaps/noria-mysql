@@ -31,7 +31,6 @@ impl ToDataType for Literal {
                 }
             }
             Literal::Integer(i) => i.into(),
-            Literal::UnsignedInteger(i) => i.into(),
             Literal::FixedPoint(Real {
                 integral,
                 fractional,

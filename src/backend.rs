@@ -792,10 +792,10 @@ where
         let write_column = |rw: &mut RowWriter<W>, c: &DataType, cs: &msql_srv::Column| {
             let written = match *c {
                 DataType::None => rw.write_col(None::<i32>),
-                DataType::Int(i) => rw.write_col(i as isize),
-                DataType::UnsignedInt(i) => rw.write_col(i as usize),
-                DataType::BigInt(i) => rw.write_col(i as isize),
-                DataType::UnsignedBigInt(i) => rw.write_col(i as usize),
+                DataType::Int(i) => rw.write_col(i),
+                DataType::UnsignedInt(i) => rw.write_col(i),
+                DataType::BigInt(i) => rw.write_col(i),
+                DataType::UnsignedBigInt(i) => rw.write_col(i),
                 DataType::Text(ref t) => rw.write_col(t.to_str().unwrap()),
                 ref dt @ DataType::TinyText(_) => rw.write_col(dt.to_string()),
                 ref dt @ DataType::Real(_, _) => match cs.coltype {
@@ -810,6 +810,7 @@ where
                     _ => unreachable!(),
                 },
                 DataType::Timestamp(ts) => rw.write_col(ts),
+                _ => unimplemented!(),
             };
             match written {
                 Ok(_) => (),
